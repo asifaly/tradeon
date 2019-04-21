@@ -10,12 +10,16 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">TradeON</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse nav-pills" id="navbarNav">
+          <%= active_link_to 'States', states_path, class: "nav-item nav-link" %>
+          <%= active_link_to 'Currencies', currencies_path, class: "nav-item nav-link" %>
+          <%= active_link_to 'Document Types', doctypes_path, class: "nav-item nav-link" %>
+
         </div>
     </nav>
     <div class="container">
