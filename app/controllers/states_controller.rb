@@ -9,6 +9,7 @@ class StatesController < ApplicationController
 			format.html
       format.csv { send_data @states.to_csv(export_fields) }
       format.xls { send_data @states.to_csv(export_fields, col_sep: "\t") }
+      format.json
 		end
   end
 
