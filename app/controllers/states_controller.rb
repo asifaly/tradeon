@@ -5,6 +5,11 @@ class StatesController < ApplicationController
   # GET /states.json
   def index
     @states = State.all
+		respond_to do |format|
+			format.html
+      format.csv { send_data @states.to_csv(export_fields) }
+      format.xls { send_data @states.to_csv(export_fields, col_sep: "\t") }
+		end
   end
 
   # GET /states/1
@@ -70,5 +75,9 @@ class StatesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def state_params
       params.require(:state).permit(:code, :gstcode, :name)
+    end
+
+    def export_fields
+      %w{code gstcode name}
     end
 end

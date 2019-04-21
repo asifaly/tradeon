@@ -1,35 +1,54 @@
-<p id="notice"><%%= notice %></p>
-
+<p id="notice">
+    <%%= notice %>
+</p>
 <div class="container">
-  <div class="row align-items-center">
-    <div class="col">
-      <h1><%= plural_table_name.titleize %></h1>
+    <div class="row align-items-center">
+        <div class="col">
+            <h1>
+                <%= plural_table_name.titleize %>
+            </h1>
+        </div>
+        <div class="text-right">
+            <%%= link_to '<i class="fa fa-plus"></i> New <%= singular_table_name.titleize %>'.html_safe, new_
+            <%= singular_route_name %>_path, :class=>'btn btn-primary' %>
+        </div>
     </div>
-    <div class="text-right">
-      <%%= link_to '<i class="fa fa-plus"></i> New <%= singular_table_name.titleize %>'.html_safe, new_<%= singular_route_name %>_path, :class=>'btn btn-primary' %>
+    <div class="row">
+        <div class="col text-right">
+            <p>
+                Download:
+                <%%= link_to "CSV", <%= plural_table_name %>_path(format: "csv") %> |
+                <%%= link_to "XLS", <%= plural_table_name %>_path(format: "xls") %>
+            </p>
+        </div>
     </div>
-
+</div>
 <table class="table table-sm">
-  <thead>
-    <tr>
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-      <th><%= attribute.human_name %></th>
-<% end -%>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-      <tr>
-        <% attributes.reject(&:password_digest?).each do |attribute| -%>
-          <td><%%= <%= singular_table_name %>.<%= attribute.column_name %> %></td>
-        <% end -%>
-          <td class="text-right">
-            <%%= link_to 'Show', <%= model_resource_name %>, :class=>'btn btn-primary btn-sm' %>
-            <%%= link_to 'Edit', edit_<%= singular_route_name %>_path(<%= singular_table_name %>), :class=>'btn btn-success btn-sm' %>
-            <%%= link_to 'Delete', <%= model_resource_name %>, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-sm' %></td>
-      </tr>
-      <%% end %>
-  </tbody>
+    <thead>
+        <tr>
+            <% attributes.reject(&:password_digest?).each do |attribute| -%>
+            <th>
+                <%= attribute.human_name %>
+            </th>
+            <% end -%>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%% @<%= plural_table_name %>.each do |
+        <%= singular_table_name %>| %>
+        <tr>
+            <% attributes.reject(&:password_digest?).each do |attribute| -%>
+            <td>
+                <%%= <%= singular_table_name %>.
+                <%= attribute.column_name %> %></td>
+            <% end -%>
+            <td class="text-right">
+                <%%= link_to 'Show', <%= model_resource_name %>, :class=>'btn btn-primary btn-sm' %>
+                <%%= link_to 'Edit', edit_<%= singular_route_name %>_path(
+                <%= singular_table_name %>), :class=>'btn btn-success btn-sm' %>
+                <%%= link_to 'Delete', <%= model_resource_name %>, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-danger btn-sm' %></td>
+        </tr>
+        <%% end %>
+    </tbody>
 </table>

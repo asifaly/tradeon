@@ -5,6 +5,11 @@ class DoctypesController < ApplicationController
   # GET /doctypes.json
   def index
     @doctypes = Doctype.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @doctypes.to_csv(export_fields) }
+      format.xls { send_data @doctypes.to_csv(export_fields, col_sep: "\t") }
+    end
   end
 
   # GET /doctypes/1
@@ -70,5 +75,9 @@ class DoctypesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def doctype_params
       params.require(:doctype).permit(:name)
+    end
+
+    def export_fields
+      %w{name}
     end
 end

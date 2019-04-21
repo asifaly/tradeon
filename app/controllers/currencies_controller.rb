@@ -5,6 +5,11 @@ class CurrenciesController < ApplicationController
   # GET /currencies.json
   def index
     @currencies = Currency.all
+		respond_to do |format|
+			format.html
+      format.csv { send_data @currencies.to_csv(export_fields) }
+      format.xls { send_data @currencies.to_csv(export_fields, col_sep: "\t") }
+		end
   end
 
   # GET /currencies/1
@@ -70,5 +75,9 @@ class CurrenciesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def currency_params
       params.require(:currency).permit(:code, :name)
+    end
+
+    def export_fields
+      %w{code name}
     end
 end
